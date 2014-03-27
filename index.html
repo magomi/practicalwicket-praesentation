@@ -42,7 +42,7 @@
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section data-transition="linear">
+        <section>
           <h1>Practical Wicket</h1>
           <p>&nbsp; </p>
 					<p style="text-align:left; font-size:smaller;">
@@ -63,7 +63,7 @@
           </p>
 				</section>
 
-				<section data-transition="linear">
+				<section>
           <h1>We are...</h1>
           <p>&nbsp; </p>
           <h2 style="text-align:left;">Bert Radke <a href="https://plus.google.com/+BertRadke">+BertRadke</a></h2>
@@ -82,7 +82,7 @@
           </p>
 				</section>
 
-				<section data-transition="linear">
+				<section>
           <h1>Once upon a time...</h1>
           <p>&nbsp; </p>
 					<ul>
@@ -94,7 +94,7 @@
           </ul>
 				</section>
         
-        <section data-transition="linear">
+        <section>
           <h1>Why Wicket?</h1>
           <p>&nbsp; </p>
 					<ul>
@@ -128,8 +128,16 @@
 				history: true,
 				center: true,
 
+        width: 1280,
+        height: 900,
+
+        margin: 0.1,
+
+        minScale: 0.2,
+        maxScale: 1.0,
+
 				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+				transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
 
 				// Parallax scrolling
 				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',

@@ -107,10 +107,53 @@
           </ul>
 				</section>
       
-        <section data-transition="linear">
+        <section>
           <h1>To be continued...</h1>
           <p>&nbsp; </p>
 				</section>
+
+        <section>
+          <section>
+            <h1>Source Code Sample</h1>
+            <p>&nbsp; </p>
+            <pre class="stretch"><code data-trim>
+public class WicketApplication extends WebApplication {
+
+    /**
+     * @see org.apache.wicket.Application#getHomePage(
+     */
+    @Override
+    public Class<? extends WebPage> getHomePage() {
+        return HomePage.class;
+    }
+                  
+    /**
+     * @see org.apache.wicket.Application#init(
+     */
+    @Override
+    public void init() {
+        super.init();
+        mountPage("page1", Page1.class);
+        mountPage("page2", Page2.class);
+    }
+}
+            </code></pre>
+          </section>
+          <section>
+            <h1>Image Sample (1)</h1>
+            <p>&nbsp; </p>
+            <img src="images/different_views.png"/>
+          </section>
+          
+          <section>
+            <h1>Image Sample (2)</h1>
+            <p>&nbsp; </p>
+            <img class="stretch" src="images/baehhh.gif"/>
+          </section>
+          
+        </section>
+
+      
       </div>
 
 		</div>

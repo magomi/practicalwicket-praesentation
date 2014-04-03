@@ -14,7 +14,7 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
 
 		<!-- For syntax highlighting -->
@@ -37,14 +37,18 @@
 	</head>
 
 	<body>
-
 		<div class="reveal">
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
+        
         <section>
+          <h1>Web-Apps und Java</h1>
+          <img class="stretch" src="images/baehhh.gif"/>
+        </section>
+		
+		<section>
           <h1>Practical Wicket</h1>
-          <p>&nbsp; </p>
 					<p style="text-align:left; font-size:smaller;">
             Wicket hat sich als ernstzunehmendes Framework für die Entwicklung von komplexen Informationssystemen 
             etabliert. UI-Komponenten lassen sich einfach und intuitiv entwickeln, der Support durch die Community 
@@ -63,9 +67,20 @@
           </p>
 				</section>
 
+        <section>
+          <h1>Agenda</h1>
+          <ul>
+            <li>Warum Apache Wicket?</li>
+            <li>Grundaufbau einer Wicket-Anwendung</li>
+            <li>Komponenten mit Daten verknüpfen</li>
+            <li>Sichere Wicket Anwendungen</li>
+            <li>Wicket für Macher</li>
+            <li>Und nun...?</li>
+          </ul>
+        </section>  
+
 				<section>
           <h1>We are...</h1>
-          <p>&nbsp; </p>
           <h2 style="text-align:left;">Bert Radke <a href="https://plus.google.com/+BertRadke">+BertRadke</a></h2>
 					<p style="text-align:left;">
 						XML is like violence. If it doesn't solve your problem, you're not using enough of it.
@@ -84,76 +99,196 @@
 
 				<section>
           <h1>Once upon a time...</h1>
-          <p>&nbsp; </p>
 					<ul>
             <li>2005: Wicket 1.0</li>
             <li>...</li>
             <li>2010: Wicket 1.5</li>
+            <ul>
+              <li>Generics</li>
+            </ul>
             <li>2012: Wicket 6</li>
+            <ul>
+              <li>Events</li>
+              <li>Integration von JQuery</li>
+              <li>Überarbeites Resourcehandling</li>
+            </ul>
             <li>2014: Wicket 7 beta</li>
           </ul>
 				</section>
-        
+       
         <section>
           <h1>Why Wicket?</h1>
-          <p>&nbsp; </p>
 					<ul>
             <li>Models sind Pojo</li>
             <li>Separation of Concerns</li>
             <li>Secure</li>
             <li>Reusable Components</li>
-            <li>...</li>
+            <li>Support of Backbutton</li>
+            <li>Localisation</li>
             <li>http://wicket.apache.org/meet/features.html</li>
           </ul>
 				</section>
-      
-        <section>
-          <h1>To be continued...</h1>
-          <p>&nbsp; </p>
-				</section>
 
         <section>
-          <section>
-            <h1>Source Code Sample</h1>
-            <p>&nbsp; </p>
-            <pre class="stretch"><code data-trim>
-public class WicketApplication extends WebApplication {
-
-    /**
-     * @see org.apache.wicket.Application#getHomePage(
-     */
-    @Override
-    public Class<? extends WebPage> getHomePage() {
-        return HomePage.class;
-    }
-                  
-    /**
-     * @see org.apache.wicket.Application#init(
-     */
-    @Override
-    public void init() {
-        super.init();
-        mountPage("page1", Page1.class);
-        mountPage("page2", Page2.class);
-    }
-}
-            </code></pre>
-          </section>
-          <section>
-            <h1>Image Sample (1)</h1>
-            <p>&nbsp; </p>
-            <img src="images/different_views.png"/>
-          </section>
-          
-          <section>
-            <h1>Image Sample (2)</h1>
-            <p>&nbsp; </p>
-            <img class="stretch" src="images/baehhh.gif"/>
-          </section>
-          
+          <h1>Los gehts...</h1>
+          <pre><code data-trim>
+mvn archetype:generate -DarchetypeGroupId=org.apache.wicket \
+                       -DarchetypeArtifactId=wicket-archetype-quickstart \
+                       -DarchetypeVersion=6.14.0 \
+                       -DgroupId=de.practicalwicket -DartifactId=demo \
+                       -DarchetypeRepository=https://repository.apache.org/ \
+                       -DinteractiveMode=false                       
+          </code></pre>
         </section>
 
-      
+        <section>
+          <h1>Projektstruktur</h1>
+          <img class="stretch" src="images/initiale_projektstruktur.png" />
+        </section>
+		
+        <section>
+          <h1>Java &amp; HTML</h1>
+          <pre><code data-trim>
+public class HomePage extends WebPage {
+    private Person goethe = new Person("Goethe", "Mehr Licht!");
+    public HomePage() {
+        setDefaultModel(new CompoundPropertyModel&lt;Person&gt;(goethe));
+        add(new Label("name"));
+        add(new Label("famousLastWord"));
+    }
+    private class Person {
+        private String name;
+        private String famousLastWord;
+        private Person(String name, String famousLastWord) {...}
+    }
+}
+          </code></pre>
+          <pre><code data-trim>
+&lt;!DOCTYPE html&gt;
+&lt;html xmlns:wicket="http://wicket.apache.org"&gt;
+    &lt;head&lt;title>Famous last Words&lt;/title&gt;&lt;/head&gt;
+    &lt;body&lt;
+        &lt;span wicket:id="name">[name]&lt;/span&gt; sagte 
+        &lt;span wicket:id="famousLastWord"&gt;[noch nichts]&lt;/span&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+          </code></pre>
+        </section>
+
+        <section>
+          <h1>Pages, Components,...</h1>
+          <h2>Vererbung</h2>
+          <pre><code data-trim>
+public class BasePage extends WebPage {
+    private final String title;
+    public BasePage(String title) {
+        this.title = title;
+    }
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+        add(new Label("title", title));
+        add(new BookmarkablePageLink&lt;HomePage&gt;("homepage", HomePage.class));
+        add(new BookmarkablePageLink&lt;Page1&gt;("page1", Page1.class));
+        add(new BookmarkablePageLink&lt;Page2&gt;("page2", Page2.class));
+    }
+}
+          </code></pre>
+
+          <pre><code data-trim>
+public class Page1 extends BasePage {
+    public Page1() {
+        super("Page 1");
+    }
+}
+          </code></pre>
+
+        </section>
+
+        <section>
+          <h1>Pages, Components,...</h1>
+          <h2>Composition</h2>
+          <pre><code data-trim>
+public class BasePage extends WebPage {
+    [...]
+    @Override
+    protected void onInitialize() {
+        [...]
+        add(getFooterPanel("footerPanel"));		
+    }
+    protected Component getFooterPanel(String wicketID) {
+        return new EmptyPanel(wicketID);
+    }
+}
+          </code></pre>
+
+          <pre><code data-trim>
+public class Page1 extends BasePage {
+    [...]
+    @Override
+    protected Component getFooterPanel(String wicketID) {
+        return new Page1FooterPanel(wicketID);
+    }
+}
+          </code></pre>
+        </section>
+
+        <section>
+			<section>
+				<h1>Test</h1>
+				<ul>
+					<li>Build-In Unittesting</li>
+					<li>Klasse WicketTester als zentrale Komponente</li>
+					<li>Test von 
+						<ul>
+							<li>Interaktionen</li>
+							<li>Status von Componenten</li>
+							<li>Responses</li>
+							<li>Ajax-Calls</li>
+						</ul>
+					</li>
+					<li>Überprüfung des erzeugten Markup</li>
+				</ul>
+			</section>
+			<section>
+				<h1>WicketTester</h1>
+				<ul>
+					<li><i>WicketTester</i> als Einstieg</li>
+				</ul>
+				<pre><code data-trim> 				
+WicketTester tester = new WicketTester(new WicketApplication());
+                </code></pre>
+				<ul>
+					<li>diverse assert-Methoden auf Wickettester</li>
+				</ul>
+				<pre><code data-trim> 				
+tester.startPage(HomePage.class);
+tester.assertRenderedPage(HomePage.class);
+tester.assertLabel("title", "Home Page");
+tester.clickLink("registration");
+tester.assertLabel("title", "Registration");
+                </code></pre>
+			</section>
+			<section>
+				<h1>FormTester</h1>
+				<ul>
+					<li><i>FormTester</i> zum Testen von Formularen</li>
+					<li>Eingabe von Daten</li>
+					<li>Formular submitten</li>
+					<li>Prüfung von Fehlermeldungen</li>
+				</ul>
+				<pre><code data-trim> 				
+WicketTester tester = new WicketTester(new WicketApplication());
+tester.startPage(RegistrationPage.class);
+FormTester formTester = tester.newFormTester("form", false);
+formTester.setValue("userName", "jb");
+[...]
+formTester.submit();
+tester.assertErrorMessages("invalid user name: jb");
+                </code></pre>
+			</section>
+		</section>
+			
       </div>
 
 		</div>

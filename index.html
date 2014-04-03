@@ -526,10 +526,53 @@ public interface IDetachable extends IClusterable {
             </section>
         </section>
 
+        <section>
+            <section>
+                <h1>Page Parameters</h1>
+                <h2>gibt es Webframeworks ohne?</h2>
+            </section>
+            <section>
+                <h2></h2>
+                <pre><code data-trim>
+public class WicketApplication extends WebApplication {
+    @Override
+    public void init() {
+        mountPage("mountingDemo/named/${author}/#{foo}", MountingIndexed.class);
+        mount(new MountedMapper("mountingDemo/query"
+                    , MountingQuery.class, new UrlPathPageParametersEncoder()));
+    }
+}
+                </code></pre>
+                <pre><code data-trim>
+public class MountingIndexed extends BasePage {
+    public MountingIndexed(PageParameters parameters) {
+        super("mounting page with named parameters");
+        String author = parameters.get("author").toString();
+        String foo = parameters.get("foo").toString();
+    }
+}
+                </code></pre>
+                <pre><code data-trim>
+public class MountingQuery extends BasePage {
+    public MountingQuery(PageParameters parameters) {
+        super("mounting page with query parameters");
+        String author = parameters.get("demoParam").toString("default");
+        String foo = parameters.get(1).toString("default-foo");
+        add(new Label("par0", author));
+        add(new Label("par1", foo));
+    }
+}
+                </code></pre>
+                <aside class="notes">
+                    <h2>step_7</h2>
+                    <span>CryptoMapper</span>
+                </aside>
+            </section>
+        </section>
+
 		<section>
 			<h1>Goodies</h1>
 			<ul>
-				<li>PageParameters</li>
 				<li>Resourcen on the fly erzeugen</li>
 				<li>Resourcebundles</li>
 				<li>Security</li>

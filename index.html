@@ -204,14 +204,35 @@ public class HomePage extends WebPage {
             </aside>
         </section>
 
+
+
         <section>
             <section>
-                <h1>einheitliches Seitenlayout</h1>
-                <h2>hier muss noch ein bild rein</h2>
+                <h2>einheitliches Seitenlayout</h2>
+                <img src="images/components_sample_01.png"/>
             </section>
 
             <section>
-                <h1>Vererbung Base Page</h1>
+                <h2>Vererbung/Comp.</h2>
+                <ul>
+                    <li><p style="color:red">Geerbt von Basisklasse</p></li>
+                    <li><p style="color:blue">Von spez. Klasse bereitgestellt</p></li>
+                    <li><p style="color:green">Komponenten</p></li>
+                </ul>
+                <img src="images/components_sample_marked_01.png"/>
+            </section>
+            <section>
+                <h2>Vererbung/Comp.</h2>
+                <ul>
+                    <li><p style="color:red">Geerbt von Basisklasse</p></li>
+                    <li><p style="color:blue">Von spez. Klasse bereitgestellt</p></li>
+                    <li><p style="color:green">Komponenten</p></li>
+                </ul>
+                <img src="images/components_sample_marked_02.png"/>
+            </section>
+
+            <section>
+                <h2>Vererbung Base Page</h2>
           <pre><code data-trim>
 public class BasePage extends WebPage {
     private final String title;
@@ -244,10 +265,11 @@ public class BasePage extends WebPage {
           </code></pre>
                 <aside class="notes">
                     <h1>step_1</h1>
+                    <span>onInitialize() // Constructor : warum </span>
                 </aside>
     </section>
     <section>
-        <h1>Vererbung Sub Page</h1>
+        <h2>Vererbung Sub Page</h2>
 
           <pre><code data-trim>
 public class Page1 extends BasePage {
@@ -299,33 +321,8 @@ public class Page1 extends BasePage {
             </section>
 
         </section>
-<<<<<<< HEAD
 
 
-
-=======
-		<section>
-			<section>
-				<h1>Vererbung/Comp.</h1>
-				<ul>
-					<li><p style="color:red">Geerbt von Basisklasse</p></li>
-					<li><p style="color:blue">Von spez. Klasse bereitgestellt</p></li>
-					<li><p style="color:green">Komponenten</p></li>
-				</ul>
-				<img src="images/components_sample_marked_01.png"/>
-			</section>
-			<section>
-				<h1>Vererbung/Comp.</h1>
-				<ul>
-					<li><p style="color:red">Geerbt von Basisklasse</p></li>
-					<li><p style="color:blue">Von spez. Klasse bereitgestellt</p></li>
-					<li><p style="color:green">Komponenten</p></li>
-				</ul>
-				<img src="images/components_sample_marked_02.png"/>
-			</section>
-		</section>
-		
->>>>>>> Vererb./Comp.
 		<section>
 			<section>
 				<h1>Formulare</h1>
@@ -346,7 +343,7 @@ public class Page1 extends BasePage {
                 </aside>
 			</section>
 			<section>
-				<h1>Formular und Felder</h1>
+				<h2>Formular und Felder</h2>
 				<pre><code data-trim>
 Form&lt;Registration> form = new Form&lt;Registration&gt;(
         "form", 
@@ -361,6 +358,9 @@ form.add(new TextField&lt;String&gt;("email"));
 form.add(new TextField&lt;String&gt;("userName"));
 form.add(new PasswordTextField("password"));
 				</code></pre>
+                <aside class="notes">
+                    <h2>step_</h2>
+                </aside>
 			</section>
 			<section>
 				<h1>Validierung</h1>

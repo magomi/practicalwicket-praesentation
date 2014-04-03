@@ -232,6 +232,66 @@ public class Page1 extends BasePage {
 }
           </code></pre>
         </section>
+		
+		<section>
+			<section>
+				<h1>Formulare</h1>
+				<ul>
+					<li>Formulare am besten durch Models unterstützen</li>
+					<li>einfache Hierarchie
+						<ul>
+							<li>Formular</li>
+							<li>Eingabekomponenten</li>
+							<li>Aktionen</li>
+						</ul>
+					</li>
+					<li>automatische Konvertierungen</li>
+					<li>Validatoren</li>
+				</ul>
+			</section>
+			<section>
+				<h1>Formular und Felder</h1>
+				<pre><code data-trim>
+Form&lt;Registration> form = new Form&lt;Registration&gt;(
+        "form", 
+        new CompoundPropertyModel&lt;Registration&gt;(new Registration())) {
+    @Override
+    protected void onSubmit() {
+        super.onSubmit();
+        setResponsePage(new RegistrationSuccess(getModel()));
+    }
+};
+form.add(new TextField&lt;String&gt;("email"));
+form.add(new TextField&lt;String&gt;("userName"));
+form.add(new PasswordTextField("password"));
+				</code></pre>
+			</section>
+			<section>
+				<h1>Validierung</h1>
+				<ul>
+					<li>Verschiedenste Validatoren mitgeliefert
+						<ul>
+							<li>Zahlen, Textlängen</li>
+							<li>Pattern, Range</li>
+							<li>E-Mail</li>
+						</ul>
+					</li>
+					<li>eigene Validatoren sind einfach:</li>
+				</ul>
+				<pre><code data-trim>
+userName.add(new IValidator&lt;String&gt;() {
+    @Override
+    public void validate(IValidatable&lt;String&gt; validatable) {
+        if (validatable.getValue().length() &lt; 4 ) {
+            ValidationError validationError = new ValidationError().addKey("username.error");
+            validationError.setVariable("userName", validatable.getValue());
+            validatable.error(validationError);
+         }
+    }
+});
+				</code></pre>
+			</section>
+		</section>
 
         <section>
 			<section>
@@ -288,7 +348,26 @@ tester.assertErrorMessages("invalid user name: jb");
                 </code></pre>
 			</section>
 		</section>
-			
+		
+		<section>
+			<section>
+				<h1>Dependency Injection</h1>
+				<ul>
+					<li>Spring</li>
+					<li>JEE CDI</li>
+					<li>Guice</li>
+				</ul>
+			</section>
+			<section>
+				<h1>Spring</h1>
+				<ul>
+					<li>Listener in web.xml definieren</li>
+					<li>Pfad zur Kontextdefinition eintragen</li>
+					<li>Laden des Kontext in Applikation initieren</li>
+					<li>Viel Spass mit Spring!</li>
+				</ul>
+			</section>
+		</section>	
       </div>
 
 		</div>

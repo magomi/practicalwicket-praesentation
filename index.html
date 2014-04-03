@@ -345,23 +345,41 @@ public class Page1 extends BasePage {
 			<section>
 				<h2>Formular und Felder</h2>
 				<pre><code data-trim>
-Form&lt;Registration> form = new Form&lt;Registration&gt;(
-        "form", 
-        new CompoundPropertyModel&lt;Registration&gt;(new Registration())) {
-    @Override
-    protected void onSubmit() {
-        super.onSubmit();
-        setResponsePage(new RegistrationSuccess(getModel()));
-    }
-};
+   Form&lt;Registration> form = new Form&lt;Registration&gt;(
+           "form",
+           new CompoundPropertyModel&lt;Registration&gt;(new Registration())) {
+       @Override
+       protected void onSubmit() {
+          super.onSubmit();
+          setResponsePage(new RegistrationSuccess(getModel()));
+       }
+   };
 form.add(new TextField&lt;String&gt;("email"));
 form.add(new TextField&lt;String&gt;("userName"));
 form.add(new PasswordTextField("password"));
 				</code></pre>
                 <aside class="notes">
-                    <h2>step_</h2>
+                    <h2>step_3</h2>
+                    <ul>
+                        <li>Verarbeitung beim submit: vonvertierung, validierung, Zuweisung zu models</li>
+                    </ul>
                 </aside>
 			</section>
+
+            <section>
+                <h2>Convertierung</h2>
+				<pre><code data-trim>
+public interface IConverter&lt;C&gt; extends IClusterable {
+
+   C convertToObject(String value, Locale locale) throws ConversionException;
+
+   String convertToString(C value, Locale locale);
+}
+                </code></pre>
+                <aside class="notes">
+                    auf Locale eingehen
+                </aside>
+            </section>
 			<section>
 				<h1>Validierung</h1>
 				<ul>
@@ -379,23 +397,134 @@ userName.add(new IValidator&lt;String&gt;() {
     @Override
     public void validate(IValidatable&lt;String&gt; validatable) {
         if (validatable.getValue().length() &lt; 4 ) {
-            ValidationError validationError = new ValidationError().addKey("username.error");
+            ValidationError validationError
+                    = new ValidationError().addKey("username.error");
             validationError.setVariable("userName", validatable.getValue());
             validatable.error(validationError);
          }
     }
 });
 				</code></pre>
+                <aside class="notes">
+                    <h2>step_4</h2>
+                </aside>
 			</section>
+
+            <section>
+                <h2>Fehlerbehandlung</h2>
+                <ul>
+                    <li>FeedbackPanel</li>
+                    <li>INFO, SUCCESS, WARNING, ERROR</li>
+                </ul>
+                <aside class="notes">
+                    <h2>step_4</h2>
+                    <ul>
+                        <li>sammelt Messages von componenten</li>
+                        <li>kan auch einzelnen Feldern zugewiesen werden</li>
+                        <li>zusätzlich noch DEBUG und FATAL</li>
+                    </ul>
+                    vorführen!
+                </aside>
+            </section>
+
+            <section>
+                <h2>Markierung fehlerhafter Componenten</h2>
+                <pre><code data-trim>
+   form.visitFormComponents(new IVisitor&lt;FormComponent&lt;?&gt;, Object>() {
+      @Override
+      public void component(FormComponent&lt;?&gt; component, IVisit&lt;Object&gt; visit) {
+           component.add(new ErrorMarkingBehavior());
+      }
+   });
+                </code></pre>
+<pre><code data-trim>
+public class ErrorMarkingBehavior extends Behavior {
+    @Override
+    public void onComponentTag(Component component, ComponentTag tag) {
+
+        if ( ! ((FormComponent)component).isValid()) {
+            String oldValue = tag.getAttribute(&quot;class&quot;);
+            if (oldValue == null) {
+                tag.put(&quot;class&quot;, &quot;error&quot;);
+            } else {
+                tag.put(&quot;class&quot;, &quot;error &quot; + oldValue);
+            }
+        }
+    }
+}
+</code></pre>
+                <aside class="notes">
+                    <h2>step_5</h2>
+                    <ul>
+                        <li>auf Behavior s eingehen (Erweiterung vorhandener Componenten, Mehrfachvererbung</li>
+                    </ul>
+                </aside>
+            </section>
+
+            <section>
+                <h2>Eigene Form als wiederverwendbare Komponente</h2>
+                <ul>
+                    <li>Markierung fehlerhafter Felder</li>
+                    <li>Markierung von Pflichtfeldern</li>
+                    <li>Plazierung der Errormessage nahe am Formelement</li>
+                </ul>
+                <aside class="notes">
+                    <h2>step_6</h2>
+                    <ul>
+                        <li>von DemoForm ausgehen</li>
+                        <li>DemoFormVisitor</li>
+                        <li>RequiredBorder: auf Borders eingehen</li>
+                    </ul>
+                </aside>
+            </section>
+
 		</section>
-		
-		<section>
-			<h1>Fehlerbehandlung</h1>
-			<ul>
-				<li>manuelle Markierung fehlerhafter Element</li>
-				<li>automatische Markierung</li>
-			</ul>
-		</section>
+
+        <section>
+            <section>
+                <h1>Models</h1>
+                <ul>
+                    <li>Bindeglied zwischen Wicket Components und Daten</li>
+                </ul>
+                <pre><code data-trim>
+public interface IModel&lt;T&gt; extends IDetachable {
+
+	T getObject();
+
+	void setObject(final T object);
+}
+                </code></pre>
+
+                <pre><code data-trim>
+public interface IDetachable extends IClusterable {
+	void detach();
+}
+                </code></pre>
+
+                <aside class="notes">
+                    auf request cycle eingehen
+                </aside>
+            </section>
+
+            <section>
+                <h2>Modelimplementierungen</h2>
+                <ul>
+                    <li>Model Model.of(), Model.ofList(), Model.ofSet()</li>
+                    <li>PropertyModel, CompoundPropertyModel</li>
+                    <li>LoadableDetachableModel</li>
+                    <li>AbstractReadonlyModel</li>
+                    <li>ChainingModel</li>
+                    <li>...</li>
+                </ul>
+                <aside class="notes">
+                    <ul>
+                        <li>Model: auf Size achten</li>
+                        <li>PropertyModel: null safe accessor (person.address.street)</li>
+                        <li>modelsuche traversal upwards</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
 
 		<section>
 			<h1>Goodies</h1>

@@ -1,7 +1,9 @@
 practicalwicket-praesentation
 =============================
 
-Presentation "Practical Wicket" held at the JUG Saxony Day - a one day conference about java development. This took place on 2014-04-04 in Dresden. 
+Presentation "Practical Wicket" held at the JUG Saxony Day - a one day conference about java development. This took place on 2014-04-04 in Dresden.
+
+view life at [http://magomi.github.io/practicalwicket-praesentation/]{http://magomi.github.io/practicalwicket-praesentation/}
 
 reveal.js
 =========

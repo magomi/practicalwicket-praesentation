@@ -118,22 +118,33 @@
             <li>2014: Wicket 7 beta</li>
           </ul>
                     <aside class="notes">
-                        Wicket 7: Ausweitung Generics auf Components, Servlet 3 als minimum, CDI 1.1, API tweaks.
+                        Wicket 7:
+                        <ul>
+                            <li>Ausweitung Generics auf Components</li>
+                            <li>Servlet 3 als minimum</li>
+                            <li>CDI 1.1</li>
+                            <li>API tweaks</li>
+                        </ul>
                     </aside>
 				</section>
        
         <section>
           <h1>Why Wicket?</h1>
-					<ul>
-            <li>Models sind Pojo</li>
+		  <ul>
+            <li>steile Lernkurve: Just Java and HTML</li>
             <li>Separation of Concerns</li>
             <li>Secure</li>
             <li>Reusable Components</li>
             <li>Support of Backbutton</li>
-            <li>Localisation</li>
+            <li>Well-designed API</li>
             <li>http://wicket.apache.org/meet/features.html</li>
           </ul>
-				</section>
+            <aside class="notes">
+                <ul>
+                    <li>Zusammenarbeit mit Designer, da plain html</li>
+                </ul>
+            </aside>
+		</section>
 
         <section>
           <h1>Los gehts...</h1>
@@ -150,6 +161,9 @@ mvn archetype:generate -DarchetypeGroupId=org.apache.wicket \
         <section>
           <h1>Projektstruktur</h1>
           <img class="stretch" src="images/initiale_projektstruktur.png" />
+            <aside class="notes" >
+                <h1>step_0_5</h1>
+            </aside>
         </section>
 		
         <section>
@@ -179,11 +193,24 @@ public class HomePage extends WebPage {
     &lt;/body&gt;
 &lt;/html&gt;
           </code></pre>
+            <aside class="notes" >
+                <h1>step_0_5</h1>
+                <ul>
+                    <li>verknüpfung via wicket:id</li>
+                    <li>Model</li>
+                    <li>Lifecylce, Constuctor, rendering</li>
+                </ul>
+            </aside>
         </section>
 
         <section>
-          <h1>Pages, Components,...</h1>
-          <h2>Vererbung</h2>
+            <section>
+                <h1>einheitliches Seitenlayout</h1>
+                <h2>hier muss noch ein bild rein</h2>
+            </section>
+
+            <section>
+                <h1>Vererbung Base Page</h1>
           <pre><code data-trim>
 public class BasePage extends WebPage {
     private final String title;
@@ -200,6 +227,23 @@ public class BasePage extends WebPage {
     }
 }
           </code></pre>
+          <pre><code data-trim>
+&lt;!DOCTYPE html&gt;
+&lt;html xmlns:wicket=&quot;http://wicket.apache.org&quot;&gt;
+   &lt;head&gt;
+      [...]
+   &lt;/head&gt;
+   &lt;body&gt;
+      [...]
+      &lt;wicket:child&gt;
+      &lt;/wicket:child&gt;
+      [...]
+   &lt;/body&gt;
+&lt;/html&gt;
+          </code></pre>
+    </section>
+    <section>
+        <h1>Vererbung Sub Page</h1>
 
           <pre><code data-trim>
 public class Page1 extends BasePage {
@@ -208,8 +252,21 @@ public class Page1 extends BasePage {
     }
 }
           </code></pre>
+<pre><code>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xmlns:wicket=&quot;http://wicket.apache.org&quot;&gt;
+   &lt;body&gt;
+      &lt;wicket:extend&gt;
+      &lt;h1&gt;Page 1&lt;/h1&gt;
+   &lt;/wicket:extend&gt;
+&lt;/body&gt;
+&lt;/html
+</code></pre>
+
+            </section>
 
         </section>
+
 
         <section>
           <h1>Pages, Components,...</h1>

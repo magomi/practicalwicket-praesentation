@@ -196,9 +196,10 @@ public class HomePage extends WebPage {
             <aside class="notes" >
                 <h1>step_0_5</h1>
                 <ul>
-                    <li>verknüpfung via wicket:id</li>
+                    <li>Verknüpfung via wicket:id</li>
                     <li>Model</li>
-                    <li>Lifecylce, Constuctor, rendering</li>
+                    <li>Lifecylce, Constructor, rendering</li>
+                    <li>Panel / Components</li>
                 </ul>
             </aside>
         </section>
@@ -241,6 +242,9 @@ public class BasePage extends WebPage {
    &lt;/body&gt;
 &lt;/html&gt;
           </code></pre>
+                <aside class="notes">
+                    <h1>step_1</h1>
+                </aside>
     </section>
     <section>
         <h1>Vererbung Sub Page</h1>
@@ -264,43 +268,45 @@ public class Page1 extends BasePage {
 </code></pre>
 
             </section>
-
-        </section>
-
-
-        <section>
-          <h1>Pages, Components,...</h1>
-          <h2>Composition</h2>
+            <section>
+                <h2>Composition</h2>
           <pre><code data-trim>
 public class BasePage extends WebPage {
-    [...]
-    @Override
-    protected void onInitialize() {
-        [...]
-        add(getFooterPanel("footerPanel"));		
-    }
-    protected Component getFooterPanel(String wicketID) {
-        return new EmptyPanel(wicketID);
-    }
+   [...]
+   @Override
+   protected void onInitialize() {
+      [...]
+      add(getFooterPanel("footerPanel"));
+   }
+   public component getFooterPanel(String wicketID) {
+      return new EmptyPanel(wicketID);
+   }
 }
-          </code></pre>
+     </code></pre>
 
-          <pre><code data-trim>
+      <pre><code data-trim>
 public class Page1 extends BasePage {
-    [...]
-    @Override
-    protected Component getFooterPanel(String wicketID) {
-        return new Page1FooterPanel(wicketID);
-    }
+   [...]
+   @Override
+   protected Component getFooterPanel(String wicketID) {
+      return new Page1FooterPanel(wicketID);
+   }
 }
           </code></pre>
+                <aside class="notes">
+                    <h1>step_2</h1>
+                </aside>
+            </section>
+
         </section>
-		
+
+
+
 		<section>
 			<section>
 				<h1>Formulare</h1>
 				<ul>
-					<li>Formulare am besten durch Models unterstützen</li>
+					<li>Formulare durch IModels an Daten knüpfen</li>
 					<li>einfache Hierarchie
 						<ul>
 							<li>Formular</li>
@@ -311,6 +317,9 @@ public class Page1 extends BasePage {
 					<li>automatische Konvertierungen</li>
 					<li>Validatoren</li>
 				</ul>
+                <aside class="notes">
+                    <h1>step_3</h1>
+                </aside>
 			</section>
 			<section>
 				<h1>Formular und Felder</h1>

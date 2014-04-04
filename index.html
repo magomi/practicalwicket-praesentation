@@ -606,12 +606,60 @@ public @interface SecuredPage {
             </section>
         </section>
 
+        <section>
+            <section>
+                <h1>Resource handling</h1>
+            </section>
+            <section>
+                <h2>Static</h2>
+                <pre><code data-trim>
+&lt;link href=&#39;http://fonts.googleapis ... &#39; rel=&#39;stylesheet&#39; type=&#39;text/css&#39;&gt;
+&lt;link href=&quot;css/bootstrap.css&quot; rel=&quot;stylesheet&quot; &gt;
+&lt;link href=&quot;css/style.css&quot; rel=&quot;stylesheet&quot; &gt;
+&lt;script src=&quot;js/bootstrap.js&quot;&gt;&lt;/script&gt;
+                </code></pre>
+                <ul>
+                    <li>And Components?</li>
+                </ul>
+                <aside class="notes">
+                    <h2>start with step_6</h2>
+                    Probleme mit componenten, die eigene abhängigkeiten haben
+                </aside>
+            </section>
+            <section>
+                <h2>Dynamic</h2>
+<pre><code data-trim>
+@Override
+public void renderHead(HtmlHeaderContainer container) {
+    super.renderHead(container);
+
+    container.getHeaderResponse()
+        .render(CssHeaderItem.forReference(new BootstrapCssReference()));
+    container.getHeaderResponse()
+        .render(CssHeaderItem.forReference(new ApplicationCssReference()));
+    container.getHeaderResponse()
+        .render((CssHeaderItem.forUrl(&quot;http://fonts.googleapis ... &quot;)));
+
+    container.getHeaderResponse()
+        .render(JavaScriptHeaderItem.forReference(new BootstrapCssReference()));
+</code></pre>
+                <aside class="notes">
+                    <h2>step_8</h2>
+                    <ul>
+                        <li>Dependency management</li>
+                        <li>Bundeles (Zusammenführung</li>
+                        <li>Priorisierung</li>
+                        <li>Versionierung</li>
+                        <li>filterung, compression, ...min</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+
 		<section>
 			<h1>Goodies</h1>
 			<ul>
 				<li>Resourcen on the fly erzeugen</li>
-				<li>Resourcebundles</li>
-				<li>Security</li>
 				<li>Internationalisierung</li>
 			</ul>
 		</section>

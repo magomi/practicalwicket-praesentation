@@ -570,6 +570,39 @@ public class MountingQuery extends BasePage {
             </section>
         </section>
 
+        <section>
+            <section>
+                <h1>Securing the App</h1>
+                <ul>
+                    <li>Integration mit Spring Security</li>
+                    <li>Integration mit <a href="http://shiro.apache.org/">http://shiro.apache.org/</a></li>
+                    <li>Wicket auth-roles</li>
+                    <li>role your own</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Listen to Wicket</h2>
+                <ul>
+                    <li>IAuthorizationStrategy</li>
+                    <li>IUnauthorizedComponentInstantiationListener</li>
+                    <li>Annotation on Components</li>
+                </ul>
+                <pre><code data-trim>
+@Inherited
+@Retention(RetentionPolicy.RUNTIME)
+public @interface SecuredPage {
+}
+                </code></pre>
+                <aside class="notes">
+                    <h2>step_9</h2>
+                    <ul>
+                        <li>show code</li>
+                        <li>Annotation, HomePage, init()</li>
+                    </ul>
+                </aside>
+            </section>
+        </section>
+
 		<section>
 			<h1>Goodies</h1>
 			<ul>
